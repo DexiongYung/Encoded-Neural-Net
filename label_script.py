@@ -104,7 +104,7 @@ def create_labeled_csv(path : str = "data", save_file : str = "labaelled_data"):
     frame = pd.concat(all_data, axis=0, ignore_index=True)
 
     frame = label_name_data(frame)
-    frame = frame.drop_duplicates(subset="name", keep = False, inplace= True)
+    frame.drop_duplicates(subset="name", keep = False, inplace= True)
     frame.to_csv(f'data/{save_file}.csv')
 
 create_labeled_csv()
