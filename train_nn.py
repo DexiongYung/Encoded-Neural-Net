@@ -3,6 +3,7 @@ import re
 from neural_net import NeuralNet
 
 EMBEDDINGS = ["", "\s", "\w[A-Za-z'-]+|[A-Z]", "\,", "\"", "\."]
+PAD = "0"
 EMBEDDINGINS_COUNT = len(EMBEDDINGS)
 
 def embedLine(line:str):
