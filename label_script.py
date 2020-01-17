@@ -87,7 +87,7 @@ def label_name_data(df: pd.DataFrame, col_hdr: str = "name", delimiter: str = " 
 
     return pd.DataFrame(names_list, columns=[name_hdr, fn_hdr, mn_hdr, ln_hdr, format_hdr])
 
-def create_labeled_csv(path : str = "data", save_file : str = "labaelled_data"):
+def create_labeled_csv(path : str = "data", save_file : str = "labelled_data"):
     """
     all CSV files in data should only have one column named "name"
     """
@@ -104,9 +104,8 @@ def create_labeled_csv(path : str = "data", save_file : str = "labaelled_data"):
     frame = pd.concat(all_data, axis=0, ignore_index=True)
 
     frame = label_name_data(frame)
+    frame.sort_values("name", inplace=True)
     frame.drop_duplicates(subset="name", keep = False, inplace= True)
     frame.to_csv(f'data/{save_file}.csv')
 
 create_labeled_csv()
-df = pd.read_csv('data/labelled_data.csv')
-print(df["format"].value_counts())
