@@ -107,5 +107,3 @@ def create_labeled_csv(path : str = "data", save_file : str = "labelled_data"):
     frame.sort_values("name", inplace=True)
     frame.drop_duplicates(subset="name", keep = False, inplace= True)
     frame.to_csv(f'data/{save_file}.csv')
-
-create_labeled_csv()
