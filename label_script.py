@@ -87,19 +87,26 @@ def label_name_data(df: pd.DataFrame, col_hdr: str = "name", delimiter: str = " 
 
     return pd.DataFrame(names_list, columns=[name_hdr, fn_hdr, mn_hdr, ln_hdr, format_hdr])
 
-path = r'data'
-all_files = glob.glob(path + "/*.csv")
+def create_labeled_csv(path : str = "data", save_file : str = "labaelled_data"):
+    """
+    all CSV files in data should only have one column named "name"
+    """
+    all_files = glob.glob(path + "/*.csv")
 
-all_data = []
+    all_data = []
 
-for i in all_files:
-    df = pd.read_csv(i)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
-        print(df)
-    all_data.append(df)
+    for i in all_files:
+        df = pd.read_csv(i)
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
+            print(df)
+        all_data.append(df)
 
-frame = pd.concat(all_data, axis=0, ignore_index=True)
+    frame = pd.concat(all_data, axis=0, ignore_index=True)
 
-frame = label_name_data(frame)
+    frame = label_name_data(frame)
+    frame = frame.drop_duplicates(subset="name", keep = False, inplace= True)
+    frame.to_csv(f'data/{save_file}.csv')
 
-frame.to_csv('data/labelled_data.csv')
+create_labeled_csv()
+df = pd.read_csv('data/labelled_data.csv')
+print(df["format"].value_counts())
